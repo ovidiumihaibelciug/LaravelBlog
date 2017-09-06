@@ -24,6 +24,8 @@
                     </div>
 
                     <div class="panel-body">
+                        <img src="/storage/cover_images/{{ $post->cover_image }}" alt="" style="width: 100%">
+                        <br><br>
                         {{ $post->content }}
                     </div>
 
