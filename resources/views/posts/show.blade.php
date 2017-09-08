@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        @include('inc.messages')
         <a href="/posts" class="btn btn-default">Back</a>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -62,6 +63,7 @@
                     @forelse ($post->comments as $comment)
                         <li class="list-group-item clearfix">
                             <div class="pull-left">
+                                <strong>{{ $comment->user->name }}</strong>:
                                 {{ $comment->body }}
                             </div>
                             <div class="pull-right">
