@@ -40,7 +40,41 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="well">
+                    <h3>Add a comment</h3>
+                    <form action="/posts/{{ $post->id }}/comments" method="POST">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="body">Comment</label>
+                            <textarea name="body" id="body" class="form-control"></textarea>
+                        </div>
 
+                        <div class="form-group clearfix">
+                            <input type="submit" class="btn btn-success pull-right">
+                        </div>
+
+                    </form>
+                </div>
+
+                <ul class="list-group">
+                    @forelse ($post->comments as $comment)
+                        <li class="list-group-item clearfix">
+                            <div class="pull-left">
+                                {{ $comment->body }}
+                            </div>
+                            <div class="pull-right">
+                                {{ $comment->created_at->diffForHumans() }}
+                            </div>
+                        </li>
+                    @empty
+                         There are no comments yet.
+                     @endforelse
+                </ul>
+            </div>
+        </div>
     </div>
+
 
 @endsection

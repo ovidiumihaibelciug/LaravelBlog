@@ -44,6 +44,7 @@
                 </div>
             </div>
         </div>
+
     @empty
         No posts.
     @endforelse
