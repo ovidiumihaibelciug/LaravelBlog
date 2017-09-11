@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Auth;
 use App\Post;
@@ -28,9 +30,11 @@ class PostsController extends Controller
     {
         //
 
-        $posts = Post::orderBy('created_at','DESC')->paginate(10);
+        $posts = Post::latest()->filter(request(['month', 'year']))->paginate(10);
 
-        return view('posts.index')->with('posts',$posts);
+        $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')->groupBy('year','month')->orderBy('created_at','DESC')->get()->toArray();
+
+        return view('posts.index')->with(['posts' => $posts, 'archives' => $archives]);
     }
 
     /**

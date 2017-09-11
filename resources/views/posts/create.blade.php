@@ -19,7 +19,7 @@
                             <label for="content">Content</label>
                             <textarea name="content" id="content" class="form-control"></textarea>
                         </div>
-                        
+
                         <div class="form-group">
                             <input type="file" name="cover_image">
                         </div>
