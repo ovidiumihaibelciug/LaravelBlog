@@ -32,9 +32,7 @@ class PostsController extends Controller
 
         $posts = Post::latest()->filter(request(['month', 'year']))->paginate(10);
 
-        $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')->groupBy('year','month')->orderBy('created_at','DESC')->get()->toArray();
-
-        return view('posts.index')->with(['posts' => $posts, 'archives' => $archives]);
+        return view('posts.index')->with(['posts' => $posts]);
     }
 
     /**
@@ -87,7 +85,6 @@ class PostsController extends Controller
 
         return redirect('/posts')->with('success', 'Post Created');
     }
-
     /**
      * Display the specified resource.
      *
