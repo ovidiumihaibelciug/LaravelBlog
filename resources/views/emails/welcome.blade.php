@@ -1,11 +1,16 @@
-<!doctype html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+@component('mail::message')
+# Introduction
 
-    <h3>TEST MAIL</h3>
+Thanks so much for registering!
 
-</body>
-</html>
+@component('mail::button', ['url' => ''])
+    Start Browsing
+@endcomponent
+@component('mail::panel', ['url' => ''])
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, voluptate. :)
+@endcomponent
+
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent
+
