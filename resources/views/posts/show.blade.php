@@ -43,6 +43,7 @@
         </div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
+                @if (!Auth::guest())
                 <div class="well">
                     <h3>Add a comment</h3>
                     <form action="/posts/{{ $post->id }}/comments" method="POST">
@@ -58,6 +59,9 @@
 
                     </form>
                 </div>
+                @else
+                    <strong>You have to <a href="/login">login </a>to let a comment.</strong>
+                @endif
 
                 <ul class="list-group">
                     @forelse ($post->comments as $comment)
