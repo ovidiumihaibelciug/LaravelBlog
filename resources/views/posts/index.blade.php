@@ -7,12 +7,12 @@
 
             <div class="row">
                 <div class="col-md-4 col-sm-4">
-                    <img src="storage/cover_images/{{ $post->cover_image }}" alt="" style="width: 100%">
+                    <img src="/storage/cover_images/{{ $post->cover_image }}" alt="" style="width: 100%">
                 </div>
                 <div class="col-md-8 col-sm-8">
 
                     {{--//title--}}
-                    <a href="posts/{{ $post->id }}">{{ $post->title }}</a>
+                    <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
                     <div class="pull-right">{{ $post->created_at->diffForHumans()  }}</div>
 
                     {{--Content--}}
@@ -44,7 +44,9 @@
     @empty
         No posts.
     @endforelse
-        {{ $posts->links() }}
+        @if (!isset($links))
+            {{ $posts->links() }}
+        @endif
 @endsection
 @if($flash = session('message'))
     <div id="flash-message" class="alert alert-success" role="alert">
