@@ -1,7 +1,6 @@
 @include('inc.head')
 
 @include('inc.navbar')
-@include('inc.messages')
 
 <div class="row">
     <div class="col-md-3"></div>
@@ -14,5 +13,6 @@
         @include('inc.sidebar')
     </div>
 </div>
+
 
 @include('inc.footer')

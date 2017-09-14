@@ -83,7 +83,9 @@ class PostsController extends Controller
 
         $post->save();
 
-        return redirect('/posts')->with('success', 'Post Created');
+        session()->flash('message', 'Post created!');
+
+        return redirect('/posts');
     }
     /**
      * Display the specified resource.
@@ -158,7 +160,9 @@ class PostsController extends Controller
 
         $post->save();
 
-        return redirect('/posts')->with('success','Post Updated');
+        session()->flash('message', 'Post Updated!');
+
+        return redirect('/posts');
     }
 
     /**
@@ -182,7 +186,9 @@ class PostsController extends Controller
 
         $post->delete();
 
-        return redirect('/posts')->with('success','Post Deleted');
+        session()->flash('message', 'Post Deleted!');
+
+        return redirect('/posts');
 
     }
 }
