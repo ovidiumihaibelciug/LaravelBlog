@@ -6,6 +6,9 @@
         <a href="/posts" class="btn btn-default">Back</a>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
+                @foreach($post->tags as $tag)
+                    <a href="/posts/tags/{{ $tag->name }}"><div class="label label-primary">{{ $tag->name }}</div></a>
+                @endforeach
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
                         {{ $post->title }}
