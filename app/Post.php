@@ -11,6 +11,12 @@ class Post extends Model
         'content', 'title','user_id'
     ];
 
+
+    public function getShortContentAttribute($key)
+    {
+        return substr($this->content,0, random_int(60, 150)) . '...';
+    }
+
     public function scopeFilter($query, $filters) {
         if (isset($filters['month'])){
             if ($month = $filters['month']) {

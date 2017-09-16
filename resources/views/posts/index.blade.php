@@ -17,7 +17,7 @@
 
                     {{--Content--}}
                     <br>
-                    {{ $post->content }}
+                    {{ $post->ShortContent  }} <a href="/posts/{{ $post->id }}">Show more</a>
                     <br><br>
 
                     {{--Footer--}}
