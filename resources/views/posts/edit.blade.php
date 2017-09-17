@@ -24,6 +24,14 @@
                         <div class="form-group">
                             <input type="file" name="cover_image">
                         </div>
+
+                        <div class="form-group">
+                            <label for="tags">Tags</label>
+                            <input type="text" name="tags" id="tags" class="form-control" value="">
+                        </div>
+
+
+
                         <input type="submit" class="btn btn-success">
                     </form>
                 </div>
