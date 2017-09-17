@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class Post extends Model
 {
     //
@@ -31,6 +34,8 @@ class Post extends Model
         }
     }
 
+
+
     public static function archives () {
         return static::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')->groupBy('year','month')->orderBy('created_at','DESC')->get()->toArray();
     }
@@ -45,5 +50,18 @@ class Post extends Model
 
     public function tags() {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function getTags() {
+
+        $tags = $this->tags();
+
+        $tagsName = array();
+        foreach ($tags as $tag) {
+            array_push($tagsName, $tag->name);
+        }
+
+
+        return $tagsName;
     }
 }
