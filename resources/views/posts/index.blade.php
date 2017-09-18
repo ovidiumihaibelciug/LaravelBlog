@@ -26,6 +26,18 @@
                     </div>
 
                     <div class="pull-right">
+
+                    </div>
+
+                    <div class="pull-right">
+                        @forelse($post->tags as $tag)
+                            <div class="label label-primary" style="margin: 2px;">
+                                {{ $tag->name }}
+                            </div>
+                        @empty
+
+                        @endforelse
+
                         @if (!Auth::guest())
                             @if(auth()->user()->id == $post->user->id)
                                 <form action="/posts/{{ $post->id }}" method="POST">
@@ -33,7 +45,6 @@
                                     {{ method_field('DELETE') }}
                                     <small><button class="btn btn-danger btn-sm" style="display:inline-block">Delete</button></small>
                                 </form>
-
                             @endif
                         @endif
                     </div>
