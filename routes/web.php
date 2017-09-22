@@ -12,9 +12,11 @@
 */
 
 Route::get('/', 'PagesController@index');
-
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
+Route::get('/contact', 'ContactController@contact');
+
+Route::post('/contact', 'ContactController@contactCreate');
 
 Route::resource('/posts', 'PostsController');
 
