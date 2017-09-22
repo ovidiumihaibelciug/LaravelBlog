@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', ' | Blog')
+
 @section('content')
     @forelse($posts as $post)
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth;
 use App\Post;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
@@ -133,6 +134,7 @@ class PostsController extends Controller
            'title' => 'required',
             'content' => 'required',
             'cover_image' => 'nullable|image|max:1999',
+            'tags' => 'max:1999',
         ]);
 
         if($request->hasFile('cover_image')) {
