@@ -12,7 +12,17 @@ class PagesController extends Controller
     }
 
     public function about() {
-        return view('pages.about');
+
+        $firstname = 'Ovidiu-Mihai';
+        $lastname = 'Belciug';
+
+        $fullname = $firstname . ' ' . $lastname;
+        $email = 'ovidiumihaibelciug@gmail.com';
+
+        $data['email'] = $email;
+        $data['fullname'] = $fullname;
+
+        return view('pages.about')->withData($data);
     }
 
     public function services() {

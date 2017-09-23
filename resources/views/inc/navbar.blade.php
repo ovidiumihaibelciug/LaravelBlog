@@ -20,11 +20,11 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 &nbsp;
-                <li><a href="/">Home</a></li>
-                <li><a href="/services">Services</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="/posts">Blog</a></li>
+                <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="/">Home</a></li>
+                <li class="{{ Request::is('services') ? 'active' : '' }}"><a href="/services">Services</a></li>
+                <li class="{{ Request::is('about') ? 'active' : '' }}"><a href="/about">About</a></li>
+                <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="/contact">Contact</a></li>
+                <li class="{{ Request::is('posts') ? 'active' : '' }}"><a href="/posts">Blog</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

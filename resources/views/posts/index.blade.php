@@ -57,9 +57,12 @@
     @empty
         No posts.
     @endforelse
-        @if (!isset($links))
-            {{ $posts->links() }}
-        @endif
+        <div class="text-center">
+            @if (!isset($links))
+                {{ $posts->links() }}
+            @endif
+        </div>
+
 @endsection
 @if($flash = session('message'))
     <div id="flash-message" class="alert alert-success" role="alert">
