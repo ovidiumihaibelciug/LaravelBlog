@@ -21,13 +21,11 @@ class ContactController extends Controller
             'message' => 'required|string|'
         ]);
 
-        $contact = new Contact;
-
-        $contact->name    = $request->input('name');
-        $contact->email   = $request->input('email');
-        $contact->message = $request->input('message');
-
-        $contact->save();
+        Contact::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'message' =>$request->input('message')
+        ]);
 
         return back()->with('success','Your message was sent! Thank you for your oppinion.');
     }

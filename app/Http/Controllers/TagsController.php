@@ -8,14 +8,11 @@ use Illuminate\Config;
 
 class TagsController extends Controller
 {
-    //
     public function index(Tag $tag) {
-        $posts = $tag->posts;
 
-        $links = 0;
         return view('posts.index')->with([
-            'posts' => $posts,
-            'links' => $links,
+            'posts' => $tag->posts,
+            'links' => 0,
         ]);
     }
 }
