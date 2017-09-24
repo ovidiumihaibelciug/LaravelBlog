@@ -4,7 +4,6 @@
 
 @section('content')
     @forelse($posts as $post)
-
         <div class="well clearfix">
 
             <div class="row">

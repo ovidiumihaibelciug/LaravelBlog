@@ -12,6 +12,7 @@
                 </div>
 
                 <div class="panel-body">
+                    <a href="/posts/create" class="btn btn-primary" style="margin: 3px;">Create a post</a>
                     @if(count($posts) > 0)
                         <table class="table table-striped">
                             <tr>

@@ -27,6 +27,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="slug">Slug</label>
+                            <input type="text" id="slug" name="slug" class="form-control" data-parsley-required placeholder="Ex: my first blog post">
+                        </div>
+
+                        <div class="form-group">
                             <input type="file" name="cover_image">
                         </div>
 

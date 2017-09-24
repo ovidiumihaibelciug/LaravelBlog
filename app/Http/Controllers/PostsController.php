@@ -1,15 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
-
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Auth;
 use App\Post;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-
 class PostsController extends Controller
 {
     /**
@@ -21,7 +17,6 @@ class PostsController extends Controller
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -30,12 +25,9 @@ class PostsController extends Controller
     public function index()
     {
         //
-
         $posts = Post::latest()->filter(request(['month', 'year']))->paginate(10);
-
         return view('posts.index')->with(['posts' => $posts]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -46,7 +38,6 @@ class PostsController extends Controller
         //
         return view('posts.create');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -60,15 +51,12 @@ class PostsController extends Controller
             'title' => 'required',
             'content' => 'required',
             'cover_image' => 'nullable|image|max:1999',
+            'slug' => 'required|unique:posts'
         ]);
-
         if($request->hasFile('cover_image')) {
-
             $filenameWithExtension = $request->file('cover_image')->getClientOriginalName();
-
             $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME);
             $extension = $request->file('cover_image')->getClientOriginalExtension();
-
             $fileNameToStore = $filename . time() . '.' . $extension;
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         } else {
@@ -76,19 +64,15 @@ class PostsController extends Controller
         }
 
         $post = new Post;
-
         $post->title = $request->input('title');
         $post->content = $request->input('content');
+        $post->slug = $request->input('slug');
         $post->user_id = auth()->user()->id;
         $post->cover_image = $fileNameToStore;
-
         $post->save();
-
         session()->flash('message', 'Post created!');
-
         return redirect('/posts');
     }
-
     /**
      * Display the specified resource.
      *
@@ -100,10 +84,8 @@ class PostsController extends Controller
     {
         //
         //$post = Post::find($id);
-
         return view('posts.show')->with('post',$post);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -114,14 +96,11 @@ class PostsController extends Controller
     {
         //
         //$post = Post::find($id);
-
         if (auth()->user()->id != $post->user_id) {
             return redirect('/posts')->with('error','Unauthorized page');
         }
-
         return view('posts.edit')->with('post', $post);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -133,42 +112,32 @@ class PostsController extends Controller
     {
         //
         $this->validate($request,[
-           'title' => 'required',
+            'title' => 'required',
             'content' => 'required',
             'cover_image' => 'nullable|image|max:1999',
             'tags' => 'max:1999',
+            'slug' => 'required|unique:posts'
         ]);
-
         if($request->hasFile('cover_image')) {
-
             $filenameWithExtension = $request->file('cover_image')->getClientOriginalName();
-
             $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME);
             $extension = $request->file('cover_image')->getClientOriginalExtension();
-
             $fileNameToStore = $filename . time() . '.' . $extension;
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         }
-
         $post = Post::findOrFail($id);
-
         if (auth()->user()->id != $post->user_id) {
             return redirect('/posts')->with('error','Unauthorized page');
         }
-
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         if ($request->hasFile('cover_image')) {
             $post->cover_image = $fileNameToStore;
         }
-
         $post->save();
-
         session()->flash('message', 'Post Updated!');
-
         return redirect('/posts');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -178,21 +147,15 @@ class PostsController extends Controller
     public function destroy(Post $post)
     {
         //
-       // $post = Post::findOrFail($id);
-
+        // $post = Post::findOrFail($id);
         if (auth()->user()->id != $post->user_id) {
             return redirect('/posts')->with('error','Unauthorized page');
         }
-
         if ($post->cover_image != 'noimage.png') {
             Storage::delete('public/cover_images/' . $post->cover_image);
         }
-
         $post->delete();
-
         session()->flash('message', 'Post Deleted!');
-
         return redirect('/posts');
-
     }
 }

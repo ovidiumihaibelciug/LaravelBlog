@@ -11,19 +11,20 @@
 |
 */
 
+Route::get('/home', 'HomeController@index')->name('home');
+//  ------- PAGES -------
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 Route::get('/contact', 'ContactController@contact');
-
 Route::post('/contact', 'ContactController@contactCreate');
 
+//  ------- POSTS --------
+Route::post('/posts/{post}/comments', 'CommentController@store');
+Route::get('posts/tags/{tag}', 'TagsController@index');
 Route::resource('/posts', 'PostsController');
 
-Route::post('/posts/{post}/comments', 'CommentController@store');
-
+//  ------- USER -------
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('posts/tags/{tag}', 'TagsController@index');

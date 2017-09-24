@@ -11,9 +11,10 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Edit a post
+                    Create a post
                 </div>
                 <div class="panel-body">
+
                     <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data" data-parsley-validate="">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
@@ -25,6 +26,11 @@
                         <div class="form-group">
                             <label for="content">Content</label>
                             <textarea name="content" id="content" class="form-control" data-parsley-required>{{ $post->content }}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="slug">Slug</label>
+                            <input type="text" id="slug" name="slug" class="form-control" value="{{ $post->slug }}" data-parsley-required>
                         </div>
 
                         <div class="form-group">
@@ -42,3 +48,5 @@
 @section('javascripts')
     <script src="{{ asset('js/parsley.min.js') }}"></script>
 @endsection
+
+
