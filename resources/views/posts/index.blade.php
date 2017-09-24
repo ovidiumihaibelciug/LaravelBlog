@@ -13,7 +13,7 @@
                 <div class="col-md-8 col-sm-8">
 
                     {{--//title--}}
-                    <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
+                    <a href="/blog/{{ $post->slug }}">{{ $post->title }}</a>
                     <div class="pull-right">{{ $post->created_at->diffForHumans()  }}</div>
 
                     {{--Content--}}

@@ -66,7 +66,7 @@ class PostsController extends Controller
         $post = new Post;
         $post->title = $request->input('title');
         $post->content = $request->input('content');
-        $post->slug = $request->input('slug');
+        $post->slug = $post->readySlug($request->input('slug'));
         $post->user_id = auth()->user()->id;
         $post->cover_image = $fileNameToStore;
         $post->save();
@@ -80,12 +80,12 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param int $id
      */
-    public function show(Post $post)
-    {
-        //
-        //$post = Post::find($id);
-        return view('posts.show')->with('post',$post);
-    }
+//    public function show(Post $post)
+//    {
+//        //
+//        //$post = Post::find($id);
+//        return view('posts.show')->with('post',$post);
+//    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -130,6 +130,7 @@ class PostsController extends Controller
             return redirect('/posts')->with('error','Unauthorized page');
         }
         $post->title = $request->input('title');
+        $post->slug = $post->readySlug($request->input('title'));
         $post->content = $request->input('content');
         if ($request->hasFile('cover_image')) {
             $post->cover_image = $fileNameToStore;
@@ -157,5 +158,11 @@ class PostsController extends Controller
         $post->delete();
         session()->flash('message', 'Post Deleted!');
         return redirect('/posts');
+    }
+
+    public function blogShow($slug) {
+        $post = Post::where('slug',$slug)->first();
+
+        return view('posts.show')->with('post', $post);
     }
 }

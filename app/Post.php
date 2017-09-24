@@ -34,6 +34,10 @@ class Post extends Model
         }
     }
 
+    public function readySlug($key) {
+        return strtolower(str_replace(' ','-',$key));
+    }
+
 
 
     public static function archives () {

@@ -23,6 +23,7 @@ Route::post('/contact', 'ContactController@contactCreate');
 Route::post('/posts/{post}/comments', 'CommentController@store');
 Route::get('posts/tags/{tag}', 'TagsController@index');
 Route::resource('/posts', 'PostsController');
+Route::get('blog/{slug}', 'PostsController@blogshow');
 
 //  ------- USER -------
 Auth::routes();
