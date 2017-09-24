@@ -4,6 +4,22 @@
 
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('css/parsley.css') }}">
+    <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+
+    <script>
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                " autoresize advlist autolink lists link image charmap print preview anchor textcolor",
+                "searchreplace visualblocks code fullscreen emoticons",
+                "insertdatetime media table contextmenu paste colorpicker hr visualblocks "
+            ],
+            toolbar: "paste insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | hr |  forecolor backcolor | emoticons | imagetools | visualblocks",
+            paste_data_images: true,
+            visualblocks_default_state: true
+        });
+    </script>
+
 @endsection
 
 @section('content')
@@ -25,7 +41,7 @@
 
                         <div class="form-group">
                             <label for="content">Content</label>
-                            <textarea name="content" id="content" class="form-control" data-parsley-required>{{ $post->content }}</textarea>
+                            <textarea name="content" id="content" class="form-control" >{{ $post->content }}</textarea>
                         </div>
 
                         <div class="form-group">
