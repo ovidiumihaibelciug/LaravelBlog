@@ -88,16 +88,18 @@ class PostsController extends Controller
 
         return redirect('/posts');
     }
+
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Post $post
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function show($id)
+    public function show(Post $post)
     {
         //
-        $post = Post::find($id);
+        //$post = Post::find($id);
 
         return view('posts.show')->with('post',$post);
     }
@@ -108,10 +110,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         //
-        $post = Post::find($id);
+        //$post = Post::find($id);
 
         if (auth()->user()->id != $post->user_id) {
             return redirect('/posts')->with('error','Unauthorized page');
@@ -173,10 +175,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
         //
-        $post = Post::findOrFail($id);
+       // $post = Post::findOrFail($id);
 
         if (auth()->user()->id != $post->user_id) {
             return redirect('/posts')->with('error','Unauthorized page');

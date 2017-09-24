@@ -13,6 +13,8 @@ class PagesController extends Controller
 
     public function about() {
 
+        //This should be in config :)
+
         $firstname = 'Ovidiu-Mihai';
         $lastname = 'Belciug';
 
