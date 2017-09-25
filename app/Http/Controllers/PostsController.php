@@ -7,6 +7,8 @@ use App\Post;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Mews\Purifier\Facades\Purifier;
+use App\Tag;
+
 
 class PostsController extends Controller
 {
@@ -38,7 +40,8 @@ class PostsController extends Controller
     public function create()
     {
         //
-        return view('posts.create');
+        $tags = Tag::all();
+        return view('posts.create')->with('tags', $tags);
     }
     /**
      * Store a newly created resource in storage.
@@ -64,7 +67,6 @@ class PostsController extends Controller
         } else {
             $fileNameToStore = 'noimage.png';
         }
-
         $post = new Post;
         $post->title = $request->input('title');
         $post->content = Purifier::clean($request->input('content'));
@@ -72,6 +74,9 @@ class PostsController extends Controller
         $post->user_id = auth()->user()->id;
         $post->cover_image = $fileNameToStore;
         $post->save();
+
+        $post->tags()->sync($request->tags, false);
+
         session()->flash('message', 'Post created!');
         return redirect('/posts');
     }
@@ -97,11 +102,16 @@ class PostsController extends Controller
     public function edit(Post $post)
     {
         //
+        $tags = Tag::all();
+
         //$post = Post::find($id);
         if (auth()->user()->id != $post->user_id) {
             return redirect('/posts')->with('error','Unauthorized page');
         }
-        return view('posts.edit')->with('post', $post);
+        return view('posts.edit')->with([
+            'post' => $post,
+            'tags' => $tags,
+        ]);
     }
     /**
      * Update the specified resource in storage.
@@ -118,7 +128,7 @@ class PostsController extends Controller
             'content' => 'required',
             'cover_image' => 'nullable|image|max:1999',
             'tags' => 'max:1999',
-            'slug' => 'required|unique:posts'
+            'slug' => 'required'
         ]);
         if($request->hasFile('cover_image')) {
             $filenameWithExtension = $request->file('cover_image')->getClientOriginalName();
@@ -132,12 +142,21 @@ class PostsController extends Controller
             return redirect('/posts')->with('error','Unauthorized page');
         }
         $post->title = $request->input('title');
-        $post->slug = $post->readySlug($request->input('title'));
+        if ($post->slug != $request->slug) {
+            $post->slug = $post->readySlug($request->input('slug'));
+        }
         $post->content = Purifier::clean($request->input('content'));
         if ($request->hasFile('cover_image')) {
             $post->cover_image = $fileNameToStore;
         }
         $post->save();
+
+        if (isset($request->tags)) {
+            $post->tags()->sync($request->tags);
+        } else {
+            $post->tags()->sync(array());
+        }
+
         session()->flash('message', 'Post Updated!');
         return redirect('/posts');
     }
@@ -161,10 +180,8 @@ class PostsController extends Controller
         session()->flash('message', 'Post Deleted!');
         return redirect('/posts');
     }
-
     public function blogShow($slug) {
         $post = Post::where('slug',$slug)->first();
-
         return view('posts.show')->with('post', $post);
     }
 }
