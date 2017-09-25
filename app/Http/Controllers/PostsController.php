@@ -6,6 +6,8 @@ use Illuminate\Auth;
 use App\Post;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Mews\Purifier\Facades\Purifier;
+
 class PostsController extends Controller
 {
     /**
@@ -65,7 +67,7 @@ class PostsController extends Controller
 
         $post = new Post;
         $post->title = $request->input('title');
-        $post->content = $request->input('content');
+        $post->content = Purifier::clean($request->input('content'));
         $post->slug = $post->readySlug($request->input('slug'));
         $post->user_id = auth()->user()->id;
         $post->cover_image = $fileNameToStore;
@@ -131,7 +133,7 @@ class PostsController extends Controller
         }
         $post->title = $request->input('title');
         $post->slug = $post->readySlug($request->input('title'));
-        $post->content = $request->input('content');
+        $post->content = Purifier::clean($request->input('content'));
         if ($request->hasFile('cover_image')) {
             $post->cover_image = $fileNameToStore;
         }

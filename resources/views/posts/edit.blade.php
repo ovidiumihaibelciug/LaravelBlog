@@ -4,7 +4,7 @@
 
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('css/parsley.css') }}">
-    <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=zdl4t2duwz5huyy71iwu4w0h81b4ty3vwl9nvfw7h0ujatqn"></script>
 
     <script>
         tinymce.init({
@@ -16,7 +16,7 @@
             ],
             toolbar: "paste insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | hr |  forecolor backcolor | emoticons | imagetools | visualblocks",
             paste_data_images: true,
-            visualblocks_default_state: true
+            visualblocks_default_state: false
         });
     </script>
 

@@ -69,7 +69,7 @@
                 @endif
 
                 <ul class="list-group">
-                   <h3><span class="glyphicon glyphicon-comment"></span> {{ $post->comments->count() }}</h3>
+                   <h3><span class="glyphicon glyphicon-comment"></span> {{ $post->comments->count() }} comments</h3>
                     @forelse ($post->comments as $comment)
                         <li class="list-group-item clearfix">
                             <div class="pull-left">
