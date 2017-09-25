@@ -21,7 +21,14 @@ Route::post('/contact', 'ContactController@contactCreate');
 
 //  ------- POSTS --------
 Route::post('/posts/{post}/comments', 'CommentController@store');
-Route::get('posts/tags/{tag}', 'TagsController@index');
+
+//See alt the posts with the tag in url
+Route::get('/posts/tags/{tag}', 'TagsController@index');
+// Add and see all tags
+Route::get('/tags', 'TagsController@create');
+Route::post('/tags', 'TagsController@store');
+
+
 Route::resource('/posts', 'PostsController');
 Route::get('blog/{slug}', 'PostsController@blogshow');
 
