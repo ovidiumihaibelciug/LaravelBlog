@@ -30,9 +30,9 @@
                     </div>
 
                     <div class="panel-body">
-                        <img src="/storage/cover_images/{{ $post->cover_image }}" alt="" style="width: 100%">
+                        {{--<img src="/storage/cover_images/{{ $post->cover_image }}" alt="" style="width: 100%">--}}
                         <br><br>
-                        {{ $post->content }}
+                        {!! $post->content !!}
                     </div>
 
                     <div class="panel-footer clearfix">
@@ -69,6 +69,7 @@
                 @endif
 
                 <ul class="list-group">
+                   <h3><span class="glyphicon glyphicon-comment"></span> {{ $post->comments->count() }}</h3>
                     @forelse ($post->comments as $comment)
                         <li class="list-group-item clearfix">
                             <div class="pull-left">
