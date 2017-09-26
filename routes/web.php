@@ -27,6 +27,9 @@ Route::get('/posts/tags/{tag}', 'TagsController@index');
 // Add and see all tags
 Route::get('/tags', 'TagsController@create');
 Route::post('/tags', 'TagsController@store');
+Route::get('/tag/{name}', 'TagsController@show');
+Route::get('/tag/{id}/edit', 'TagsController@edit');
+Route::put('/tag/{id}', 'TagsController@update');
 
 
 Route::resource('/posts', 'PostsController');

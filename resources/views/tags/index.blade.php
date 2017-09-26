@@ -24,7 +24,7 @@
                         @forelse($tags as $sTag)
                             <tr>
                                 <td>{{ $sTag->id }}</td>
-                                <td>{{ $sTag->name }}</td>
+                                <td><a href="/tag/{{ $sTag->name }}">{{ $sTag->name }}</a></td>
                             </tr>
                         @empty
                             There are no tags. Add one to see it here.
@@ -34,7 +34,7 @@
             </div>
 
             <div class="col-md-2">
-                bbbb
+
             </div>
             <div class="col-md-3">
                 <form action="/tags" method="POST">

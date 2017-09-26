@@ -26,11 +26,7 @@
                         Written by {{ $post->user->name }}
                     </div>
 
-                    <div class="pull-right">
-
-                    </div>
-
-                    <div class="pull-right">
+                    <div class="pull-right clearfix">
                         @forelse($post->tags as $tag)
                             <div class="label label-primary" style="margin: 2px;">
                                 {{ $tag->name }}

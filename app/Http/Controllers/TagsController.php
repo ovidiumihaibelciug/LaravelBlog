@@ -67,9 +67,12 @@ class TagsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
         //
+        $tag = Tag::where('name', $name)->first();
+
+        return view('tags.show')->withTag($tag);
     }
 
     /**
@@ -81,6 +84,10 @@ class TagsController extends Controller
     public function edit($id)
     {
         //
+        $tag = Tag::find($id);
+
+        return view('tags.edit')->withTag($tag);
+
     }
 
     /**
@@ -93,6 +100,18 @@ class TagsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'tag' => 'required|max:255',
+        ]);
+
+        $tag = Tag::find($id);
+        $tag->name = $request->input('tag');
+        $tag->save();
+
+        Session::flash('success', 'The tag was successfully edited!');
+
+        return redirect('/tag/' . $tag->name)->with('tag', $tag);
+
     }
 
     /**
