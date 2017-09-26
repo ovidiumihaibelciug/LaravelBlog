@@ -176,6 +176,7 @@ class PostsController extends Controller
         if ($post->cover_image != 'noimage.png') {
             Storage::delete('public/cover_images/' . $post->cover_image);
         }
+        $post->tags()->detach();
         $post->delete();
         session()->flash('message', 'Post Deleted!');
         return redirect('/posts');

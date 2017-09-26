@@ -24,12 +24,13 @@ Route::post('/posts/{post}/comments', 'CommentController@store');
 
 //See alt the posts with the tag in url
 Route::get('/posts/tags/{tag}', 'TagsController@index');
-// Add and see all tags
+// TAG CRUD
 Route::get('/tags', 'TagsController@create');
 Route::post('/tags', 'TagsController@store');
 Route::get('/tag/{name}', 'TagsController@show');
 Route::get('/tag/{id}/edit', 'TagsController@edit');
 Route::put('/tag/{id}', 'TagsController@update');
+Route::delete('/tag/{id}/delete', 'TagsController@destroy');
 
 
 Route::resource('/posts', 'PostsController');
